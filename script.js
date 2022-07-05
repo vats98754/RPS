@@ -40,3 +40,11 @@ function playRound(playerSelection, computerSelection) {
         }
     }
 }
+
+function game() {
+    for (let i = 0; i < 5; ++i) {
+        const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
+        console.log(playRound(pS, computerPlay()));
+    }
+}
+game();
