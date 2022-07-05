@@ -29,4 +29,14 @@ function playRound(playerSelection, computerSelection) {
     let pS = playerSelection.toLowerCase();
     pS = capitalizeFirstLetter(pS);
     const cS = computerSelection;
+
+    if (pS === cS) {
+        return("You Tie! " + pS + " ties " + cS);
+    } else {
+        if ((pS === "Scissors" && cS === "Rock") || (pS === "Paper" && cS === "Scissors") || (pS === "Rock" && cS === "Paper")) {
+            return("You Lose! " + cS + " beats " + pS);
+        } else {
+            return("You Win! " + pS + " beats " + cS);
+        }
+    }
 }
