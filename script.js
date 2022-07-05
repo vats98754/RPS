@@ -33,18 +33,43 @@ function playRound(playerSelection, computerSelection) {
     if (pS === cS) {
         return("You Tie! " + pS + " ties " + cS);
     } else {
-        if ((pS === "Scissors" && cS === "Rock") || (pS === "Paper" && cS === "Scissors") || (pS === "Rock" && cS === "Paper")) {
+        if ((pS === "Scissors" && cS === "Rock") || 
+            (pS === "Paper" && cS === "Scissors") || 
+            (pS === "Rock" && cS === "Paper")) {
+            ++compScore;
             return("You Lose! " + cS + " beats " + pS);
         } else {
+            ++playerScore;
             return("You Win! " + pS + " beats " + cS);
         }
     }
 }
 
+// 5-round game that loops 5 times over playRound(), passing in player's choice through prompt()
 function game() {
+    playerScore = 0;
+    compScore = 0;
+    console.log("Get ready for a best of 5 games, which will end as soon as you win the majority of (3) rounds. Begin!");
     for (let i = 0; i < 5; ++i) {
         const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
         console.log(playRound(pS, computerPlay()));
     }
+    // Prints the final results of the game
+    finalResults(playerScore, compScore);
 }
+
+// Global variables that get set to 0 at the start of each game, helping determine final game scores
+let compScore = 0;
+let playerScore = 0;
+
+function finalResults(playerScore, compScore) {
+    if (playerScore == compScore) {
+        console.log("You tie the game! You scored " + playerScore + " while the computer scored " + compScore);
+    } else if (playerScore > compScore) {
+        console.log("You win the game! You scored " + playerScore + " while the computer scored " + compScore);
+    } else {
+        console.log("You lose the game! You scored " + playerScore + " while the computer scored " + compScore);
+    }
+}
+
 game();
