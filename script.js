@@ -45,12 +45,13 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// 5-round game that loops 5 times over playRound(), passing in player's choice through prompt()
-function game() {
+// numRounds-round game that loops numRounds times over playRound(), passing in player's choice through prompt()
+function game(numRounds = 5) {
     playerScore = 0;
     compScore = 0;
-    console.log("Get ready for a best of 5 games, which will end as soon as you win the majority of (3) rounds. Begin!");
-    for (let i = 0; i < 5; ++i) {
+    console.log("Get ready for a best of " + numRounds + 
+    " games, which will end as soon as you win the majority of rounds. Enjoy!");
+    for (let i = 0; i < numRounds; ++i) {
         const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
         console.log(playRound(pS, computerPlay()));
     }
@@ -62,6 +63,7 @@ function game() {
 let compScore = 0;
 let playerScore = 0;
 
+// Logs the final scores from a game on the console, determing the overall winner/loser
 function finalResults(playerScore, compScore) {
     if (playerScore == compScore) {
         console.log("You tie the game! You scored " + playerScore + " while the computer scored " + compScore);
@@ -72,4 +74,6 @@ function finalResults(playerScore, compScore) {
     }
 }
 
-game();
+// Asks user how many rounds they'd like to play and passes this to game()
+const numRounds = Math.floor(prompt("How many rounds of Rock, Paper, Scissors would you like to play?"));
+game(numRounds);
