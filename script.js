@@ -18,3 +18,15 @@ function computerPlay() {
             break;
     }
 }
+
+// Capitalizes first letter of lowercased playerSelection to ensure fair comparison
+function capitalizeFirstLetter(str) {
+    return(str[0].toUpperCase() + str.slice(1));
+}
+
+// To play single round of RPS based on Player's choice and Computer's Choice
+function playRound(playerSelection, computerSelection) {
+    let pS = playerSelection.toLowerCase();
+    pS = capitalizeFirstLetter(pS);
+    const cS = computerSelection;
+}
