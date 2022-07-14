@@ -36,44 +36,49 @@ function playRound(playerSelection, computerSelection) {
         if ((pS === "Scissors" && cS === "Rock") || 
             (pS === "Paper" && cS === "Scissors") || 
             (pS === "Rock" && cS === "Paper")) {
-            ++compScore;
+            // ++compScore;
             return("You Lose! " + cS + " beats " + pS);
         } else {
-            ++playerScore;
+            // ++playerScore;
             return("You Win! " + pS + " beats " + cS);
         }
     }
 }
 
-// numRounds-round game that loops numRounds times over playRound(), passing in player's choice through prompt()
-function game(numRounds = 5) {
-    playerScore = 0;
-    compScore = 0;
-    console.log("Get ready for a best of " + numRounds + 
-    " games, which will end as soon as you win the majority of rounds. Enjoy!");
-    for (let i = 0; i < numRounds; ++i) {
-        const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
-        console.log(playRound(pS, computerPlay()));
-    }
-    // Prints the final results of the game
-    finalResults(playerScore, compScore);
-}
+const btnList = document.querySelectorAll(".playerChoice");
+btnList.forEach(btn => btn.addEventListener("click", function(e) {
+    console.log(playRound(btn.textContent, computerPlay()));
+}));
 
-// Global variables that get set to 0 at the start of each game, helping determine final game scores
-let compScore = 0;
-let playerScore = 0;
+// // numRounds-round game that loops numRounds times over playRound(), passing in player's choice through prompt()
+// function game(numRounds = 5) {
+//     playerScore = 0;
+//     compScore = 0;
+//     console.log("Get ready for a best of " + numRounds + 
+//     " games, which will end as soon as you win the majority of rounds. Enjoy!");
+//     for (let i = 0; i < numRounds; ++i) {
+//         const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
+//         console.log(playRound(pS, computerPlay()));
+//     }
+//     // Prints the final results of the game
+//     finalResults(playerScore, compScore);
+// }
 
-// Logs the final scores from a game on the console, determing the overall winner/loser
-function finalResults(playerScore, compScore) {
-    if (playerScore == compScore) {
-        console.log("You tie the game! You scored " + playerScore + " while the computer scored " + compScore);
-    } else if (playerScore > compScore) {
-        console.log("You win the game! You scored " + playerScore + " while the computer scored " + compScore);
-    } else {
-        console.log("You lose the game! You scored " + playerScore + " while the computer scored " + compScore);
-    }
-}
+// // Global variables that get set to 0 at the start of each game, helping determine final game scores
+// let compScore = 0;
+// let playerScore = 0;
 
-// Asks user how many rounds they'd like to play and passes this to game()
-const numRounds = Math.floor(prompt("How many rounds of Rock, Paper, Scissors would you like to play?"));
-game(numRounds);
+// // Logs the final scores from a game on the console, determing the overall winner/loser
+// function finalResults(playerScore, compScore) {
+//     if (playerScore == compScore) {
+//         console.log("You tie the game! You scored " + playerScore + " while the computer scored " + compScore);
+//     } else if (playerScore > compScore) {
+//         console.log("You win the game! You scored " + playerScore + " while the computer scored " + compScore);
+//     } else {
+//         console.log("You lose the game! You scored " + playerScore + " while the computer scored " + compScore);
+//     }
+// }
+
+// // Asks user how many rounds they'd like to play and passes this to game()
+// const numRounds = Math.floor(prompt("How many rounds of Rock, Paper, Scissors would you like to play?"));
+// game(numRounds);
