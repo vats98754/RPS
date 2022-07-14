@@ -9,12 +9,24 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="choices">
-            <button class="playerChoice">Rock</button>
-            <button class="playerChoice">Paper</button>
-            <button class="playerChoice">Scissors</button>
+        <div class="game-results">
+            <div class="game-top">
+                <p>Player</p>
+                <p>Computer</p>
+            </div>
+            <div class="game-bottom">
+                <p id="player-score">0</p>
+                <p id="computer-score">0</p>
+            </div>
         </div>
-        <div class="round-result"></div>
-        <div class="game-result"></div>
+        <div class="choices">
+            <button class="player-choice">Rock</button>
+            <button class="player-choice">Paper</button>
+            <button class="player-choice">Scissors</button>
+        </div>
+        <div class="round-results">
+            <h1 class="round-result-title">Round Result</h1>
+            <div class="round-result-text"></div>
+        </div>
     </body>
 </html>

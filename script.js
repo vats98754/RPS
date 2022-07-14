@@ -26,36 +26,53 @@ function capitalizeFirstLetter(str) {
 
 // To play single round of RPS based on Player's choice and Computer's Choice
 function playRound(playerSelection, computerSelection) {
-    let pS = playerSelection.toLowerCase();
-    pS = capitalizeFirstLetter(pS);
-    const cS = computerSelection;
+    while(gamesPlayed < numRounds){
+        ++gamesPlayed;
+        let pS = playerSelection.toLowerCase();
+        pS = capitalizeFirstLetter(pS);
+        const cS = computerSelection;
 
-    if (pS === cS) {
-        return("You Tie! " + pS + " ties " + cS);
-    } else {
-        if ((pS === "Scissors" && cS === "Rock") || 
-            (pS === "Paper" && cS === "Scissors") || 
-            (pS === "Rock" && cS === "Paper")) {
-            // ++compScore;
-            return("You Lose! " + cS + " beats " + pS);
+        if (pS === cS) {
+            return("You Tie! " + pS + " ties " + cS);
         } else {
-            // ++playerScore;
-            return("You Win! " + pS + " beats " + cS);
+            if ((pS === "Scissors" && cS === "Rock") || 
+                (pS === "Paper" && cS === "Scissors") || 
+                (pS === "Rock" && cS === "Paper")) {
+                ++compScore;
+                computerScoreElement.textContent = compScore;
+                return("You Lose! " + cS + " beats " + pS);
+            } else {
+                ++playerScore;
+                playerScoreElement.textContent = playerScore;
+                return("You Win! " + pS + " beats " + cS);
+            }
         }
     }
 }
 
-const btnList = document.querySelectorAll(".playerChoice");
+const btnList = document.querySelectorAll(".player-choice");
+const playerScoreElement = document.querySelector("#player-score");
+const computerScoreElement = document.querySelector("#computer-score");
+const roundResultTitle = document.querySelector(".round-result-title");
+const roundResultText = document.querySelector(".round-result-text");
+
 btnList.forEach(btn => btn.addEventListener("click", function(e) {
-    console.log(playRound(btn.textContent, computerPlay()));
+    roundResultText.textContent = playRound(btn.textContent, computerPlay());
+    console.log(gamesPlayed);
+    if (gamesPlayed === numRounds) {
+        btnList.forEach((btn) => {
+            btn.disabled = true;
+        });
+        finalResults(playerScore, compScore);
+    }
 }));
 
 // // numRounds-round game that loops numRounds times over playRound(), passing in player's choice through prompt()
 // function game(numRounds = 5) {
 //     playerScore = 0;
 //     compScore = 0;
-//     console.log("Get ready for a best of " + numRounds + 
-//     " games, which will end as soon as you win the majority of rounds. Enjoy!");
+//     // console.log("Get ready for a best of " + numRounds + 
+//     // " games, which will end as soon as you win the majority of rounds. Enjoy!");
 //     for (let i = 0; i < numRounds; ++i) {
 //         const pS = prompt("Enter your choice (Rock, Paper, or Scissors): ");
 //         console.log(playRound(pS, computerPlay()));
@@ -64,21 +81,27 @@ btnList.forEach(btn => btn.addEventListener("click", function(e) {
 //     finalResults(playerScore, compScore);
 // }
 
-// // Global variables that get set to 0 at the start of each game, helping determine final game scores
-// let compScore = 0;
-// let playerScore = 0;
+// Global variables that get set to 0 at the start of each game, helping determine final game scores
+let compScore = 0;
+let playerScore = 0;
+let gamesPlayed = 0;
 
-// // Logs the final scores from a game on the console, determing the overall winner/loser
-// function finalResults(playerScore, compScore) {
-//     if (playerScore == compScore) {
-//         console.log("You tie the game! You scored " + playerScore + " while the computer scored " + compScore);
-//     } else if (playerScore > compScore) {
-//         console.log("You win the game! You scored " + playerScore + " while the computer scored " + compScore);
-//     } else {
-//         console.log("You lose the game! You scored " + playerScore + " while the computer scored " + compScore);
-//     }
-// }
+// Logs the final scores from a game on the console, determing the overall winner/loser
+function finalResults(playerScore, compScore) {
+    roundResultText.textContent = "";
+    if (playerScore === compScore) {
+        roundResultTitle.textContent = "You tie the game! You scored " + playerScore + " while the computer scored " + compScore;
+        playerScoreElement.style.color = "greenyellow";
+        computerScoreElement.style.color = "greenyellow";
+    } else if (playerScore > compScore) {
+        roundResultTitle.textContent = "You win the game! You scored " + playerScore + " while the computer scored " + compScore;
+        playerScoreElement.style.color = "greenyellow";
+    } else if (playerScore < compScore) {
+        roundResultTitle.textContent = "You lose the game! You scored " + playerScore + " while the computer scored " + compScore;
+        computerScoreElement.style.color = "greenyellow";
+    }
+}
 
-// // Asks user how many rounds they'd like to play and passes this to game()
-// const numRounds = Math.floor(prompt("How many rounds of Rock, Paper, Scissors would you like to play?"));
+// Asks user how many rounds they'd like to play and passes this to game()
+const numRounds = Math.floor(prompt("How many rounds of Rock, Paper, Scissors would you like to play?"));
 // game(numRounds);
